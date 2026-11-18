@@ -5,14 +5,26 @@
 """
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
+from app.migration_engine.seed import seed_demo_tasks
+from app.migration_engine.engine import engine
 from app.routers import ROUTERS
 from app.store import store
 
-app = FastAPI(title="湖仓一体化治理平台", version="1.0.0")
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    # 启动即播种分段迁移演示任务（orders_2026Q4 64 段场景）
+    seed_demo_tasks(engine)
+    yield
+
+
+app = FastAPI(title="湖仓一体化治理平台", version="1.0.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

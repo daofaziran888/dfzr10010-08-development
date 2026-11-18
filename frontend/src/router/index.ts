@@ -17,6 +17,8 @@ const Lineage = () => import('@/views/lineage/index.vue')
 const Schedule = () => import('@/views/schedule/index.vue')
 const Stats = () => import('@/views/stats/index.vue')
 const Migrate = () => import('@/views/migrate/index.vue')
+const MigrationWorkbench = () => import('@/views/migration-workbench/index.vue')
+const MigrationAudit = () => import('@/views/migration-audit/index.vue')
 
 const router = createRouter({
   history: createWebHistory(),
@@ -38,6 +40,8 @@ const router = createRouter({
     { path: '/schedule', name: 'schedule', component: Schedule },
     { path: '/stats', name: 'stats', component: Stats },
     { path: '/migrate', name: 'migrate', component: Migrate },
+    { path: '/migration-workbench', name: 'migration-workbench', component: MigrationWorkbench },
+    { path: '/migration-audit', name: 'migration-audit', component: MigrationAudit },
   ],
 })
 
